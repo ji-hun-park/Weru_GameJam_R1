@@ -119,7 +119,6 @@ public class APIManager : MonoBehaviour
             Debug.Log("Model Response: " + modelResponse);
             apiResponse = modelResponse;
             isCatch = true;
-            UIManager.Instance.UIList[0].GetComponent<ChatUI>().OneShot = true;
         }
         else
         {
