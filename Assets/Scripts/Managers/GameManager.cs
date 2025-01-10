@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class GameManager : MonoBehaviour
     [Header("GameObjects")]
     public Transform player;
     public GameObject npc;
-
+    public GameObject tmp;
+    
     // Update is called once per frame
     private void Awake()
     {
@@ -22,8 +24,29 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // 기존에 존재하면 자신파괴
         }
-        
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        npc = GameObject.FindGameObjectWithTag("NPC");
+    }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"Scene Loaded: {scene.name}");
+
+        InitializeScene(scene);
+    }
+
+    private void InitializeScene(Scene scene)
+    {
+        tmp = GameObject.FindGameObjectWithTag("Player");
+        if (tmp != null) player = tmp.transform;
+        //npc = GameObject.FindGameObjectWithTag("NPC");
     }
 }
