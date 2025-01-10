@@ -49,14 +49,14 @@ public class GameManager : MonoBehaviour
 
     private void InitializeScene(Scene scene)
     {
-        FindWithTag("Player", player);
-        FindWithTag("NPC", npc);
-        FindWithTag("AnimMonster", animMon);
+        player = FindWithTag("Player");
+        npc = FindWithTag("NPC");
+        animMon = FindWithTag("AnimMonster");
     }
 
-    public void FindWithTag(string tag, GameObject target)
+    public GameObject FindWithTag(string tag)
     {
         tmp = GameObject.FindGameObjectWithTag(tag);
-        if (tmp != null) target = tmp;)
+        return tmp;
     }
 }

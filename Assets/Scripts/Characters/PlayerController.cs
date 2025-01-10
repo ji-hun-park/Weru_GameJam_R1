@@ -11,15 +11,15 @@ public class PlayerController : MonoBehaviour
     
     private Vector3 dir;
     
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     public LayerMask layer;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        speed = 10f;
-        jumpHeight = 3f;
+        speed = 5f;
+        jumpHeight = 10f;
         dash = 5f;
         rotSpeed = 3f;
         dir = Vector3.zero;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         dir.x = Input.GetAxis("Horizontal");
-        dir.y = Input.GetAxis("Vertical");
+        dir.z = Input.GetAxis("Vertical");
         dir.Normalize();
 
         CheckGround();
@@ -40,7 +40,14 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(jumpPower, ForceMode.VelocityChange);
         }
 
-        if (!isGrounded) rb.linearDamping = 0;
+        if (!isGrounded)
+        {
+            rb.linearDamping = 0;
+        }
+        else
+        {
+            rb.linearDamping = 10;
+        }
 
         if (Input.GetButtonDown("Dash"))
         {

@@ -73,7 +73,7 @@ public class CameraFollow : MonoBehaviour
 
     IEnumerator InitPlayer()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
         target = GameManager.Instance.player.transform;
     }
 }
