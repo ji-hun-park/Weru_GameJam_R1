@@ -28,47 +28,54 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dir.x = Input.GetAxis("Horizontal");
-        dir.z = Input.GetAxis("Vertical");
-        dir.Normalize();
-
-        CheckGround();
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (!GameManager.Instance.isEventAnim)
         {
-            Vector3 jumpPower = Vector3.up * jumpHeight;
-            rb.AddForce(jumpPower, ForceMode.VelocityChange);
-        }
+            dir.x = Input.GetAxis("Horizontal");
+            dir.z = Input.GetAxis("Vertical");
+            dir.Normalize();
 
-        if (!isGrounded)
-        {
-            rb.linearDamping = 0;
-        }
-        else
-        {
-            rb.linearDamping = 10;
-        }
+            CheckGround();
 
-        if (Input.GetButtonDown("Dash"))
-        {
-            Vector3 dashPower = this.transform.forward * -Mathf.Log(1/rb.linearDamping) * dash;
-            rb.AddForce(dashPower, ForceMode.VelocityChange);
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {
+                Vector3 jumpPower = Vector3.up * jumpHeight;
+                rb.AddForce(jumpPower, ForceMode.VelocityChange);
+            }
+
+            if (!isGrounded)
+            {
+                rb.linearDamping = 0;
+            }
+            else
+            {
+                rb.linearDamping = 10;
+            }
+
+            if (Input.GetButtonDown("Dash"))
+            {
+                Vector3 dashPower = this.transform.forward * -Mathf.Log(1 / rb.linearDamping) * dash;
+                rb.AddForce(dashPower, ForceMode.VelocityChange);
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (dir != Vector3.zero)
+        if (!GameManager.Instance.isEventAnim)
         {
-            if (Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x) ||
-                Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z))
+            if (dir != Vector3.zero)
             {
-                transform.Rotate(0, 1, 0);
+                if (Mathf.Sign(transform.forward.x) != Mathf.Sign(dir.x) ||
+                    Mathf.Sign(transform.forward.z) != Mathf.Sign(dir.z))
+                {
+                    transform.Rotate(0, 1, 0);
+                }
+
+                transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotSpeed);
             }
-            transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotSpeed);
+
+            rb.MovePosition(transform.position + dir * speed * Time.deltaTime);
         }
-        
-        rb.MovePosition(transform.position + dir * speed * Time.deltaTime);
     }
 
     void CheckGround()
