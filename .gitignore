@@ -55,6 +55,13 @@ ExportedObj/
 # Unity3D generated file on crash reports
 sysinfo.txt
 
+# Unity3D Paid Assets
+Knife_MocapAnimPack_1.1/
+Knife_MocapAnimPack_1.1.meta
+
+# idea
+.idea/
+
 # Builds
 *.apk
 *.aab
@@ -71,3 +78,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# API KEY
+config.json
