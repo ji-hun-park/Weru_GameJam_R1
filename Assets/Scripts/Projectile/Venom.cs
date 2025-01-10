@@ -1,14 +1,10 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Venom : MonoBehaviour
 {
-    private Rigidbody rb;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private float moveSpeed = 10;
 
     // Update is called once per frame
     void Update()
@@ -16,9 +12,39 @@ public class Venom : MonoBehaviour
         GuidedMissile();
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(LifeCycle());
+    }
+
     private void GuidedMissile()
     {
-        Vector3 dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
-        rb.MovePosition(transform.position + dir * 40f * Time.deltaTime);
+        transform.Rotate(GameManager.Instance.player.transform.position);
+        transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.player.transform.position, moveSpeed * Time.deltaTime);
+    }
+
+    private IEnumerator LifeCycle()
+    {
+        yield return new WaitForSeconds(2f);
+        DestroyVenom();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.Instance.player.gameObject.GetComponent<PlayerController>().Damaged();
+            DestroyVenom();
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Wall") || other.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        {
+            DestroyVenom();
+        }
+    }
+
+    private void DestroyVenom()
+    {
+        Destroy(gameObject);
     }
 }

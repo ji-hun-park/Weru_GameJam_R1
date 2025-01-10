@@ -13,7 +13,8 @@ public class MonsterController : MonoBehaviour
     public Rigidbody rb;
     public GameObject venomPrefab;
     
-    Vector3 rotationOffset = new Vector3(0f, 0f, 90f);
+    private Vector3 rotationOffset = new Vector3(0f, -90f, 90f);
+    private Vector3 dir;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,7 +36,8 @@ public class MonsterController : MonoBehaviour
     private IEnumerator PlayStartAnimation()
     {
         yield return new WaitForSeconds(0.1f);
-        Vector3 dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
+        // 플레이어를 바라보는 방향 계산
+        dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
         float timer = 0;
         
         while (timer < 2f)
@@ -52,9 +54,11 @@ public class MonsterController : MonoBehaviour
 
     private GameObject SpawnVenom()
     {
+        // 투사체 회전 설정
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
         // 현재 회전 값에 90도 오프셋 추가
-        Quaternion spawnRotation = Quaternion.Euler(transform.eulerAngles + rotationOffset);
-        GameObject venom = Instantiate(venomPrefab, transform.position, spawnRotation);
+        //Quaternion spawnRotation = Quaternion.Euler(transform.eulerAngles + rotationOffset);
+        GameObject venom = Instantiate(venomPrefab, transform.position, lookRotation);
         return venom;
     }
 }

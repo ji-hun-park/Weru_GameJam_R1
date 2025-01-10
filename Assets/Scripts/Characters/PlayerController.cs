@@ -91,4 +91,9 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+    public void Damaged()
+    {
+        Debug.Log("Damaged!");
+    }
 }
