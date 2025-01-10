@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cee88d52834e4846a0a8696b003c2b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myType: 0
+  venomPrefab: {fileID: 2318453969982739735, guid: b440c58bb6047eb42b6e565850dc402f, type: 3}
 --- !u!1001 &1495937511315261002
 PrefabInstance:
   m_ObjectHideFlags: 0

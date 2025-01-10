@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Flags")]
     public bool isEventAnim;
+    public bool isIngame;
     
     // Update is called once per frame
     private void Awake()
@@ -43,15 +44,22 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"Scene Loaded: {scene.name}");
-
+        if (scene.name == "IngameScene")
+        {
+            isIngame = true;
+            isEventAnim = true;
+        }
         InitializeScene(scene);
     }
 
     private void InitializeScene(Scene scene)
     {
-        player = FindWithTag("Player");
-        npc = FindWithTag("NPC");
-        animMon = FindWithTag("AnimMonster");
+        if (isIngame)
+        {
+            player = FindWithTag("Player");
+            npc = FindWithTag("NPC");
+            animMon = FindWithTag("AnimMonster");
+        }
     }
 
     public GameObject FindWithTag(string tag)
