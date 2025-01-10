@@ -7,9 +7,13 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     
     [Header("GameObjects")]
-    public Transform player;
+    public GameObject player;
     public GameObject npc;
     public GameObject tmp;
+    public GameObject animMon;
+
+    [Header("Flags")]
+    public bool isEventAnim;
     
     // Update is called once per frame
     private void Awake()
@@ -45,8 +49,14 @@ public class GameManager : MonoBehaviour
 
     private void InitializeScene(Scene scene)
     {
-        tmp = GameObject.FindGameObjectWithTag("Player");
-        if (tmp != null) player = tmp.transform;
-        //npc = GameObject.FindGameObjectWithTag("NPC");
+        FindWithTag("Player", player);
+        FindWithTag("NPC", npc);
+        FindWithTag("AnimMonster", animMon);
+    }
+
+    public void FindWithTag(string tag, GameObject target)
+    {
+        tmp = GameObject.FindGameObjectWithTag(tag);
+        if (tmp != null) target = tmp;)
     }
 }

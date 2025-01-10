@@ -12,6 +12,9 @@ public class CameraFollow : MonoBehaviour
 
     private Vector2 lookInput;
 
+    public Vector3 fixedPosition = new Vector3(0, 10, -15);
+    public Vector3 fixedRotation = new Vector3(25, 0, 0);
+    
     private void Start()
     {
         InitSet();
@@ -37,9 +40,16 @@ public class CameraFollow : MonoBehaviour
         }
     }
 
-    /*void LateUpdate()
+    void LateUpdate()
     {
-        if (target != null)
+        if (GameManager.Instance.isEventAnim)
+        {
+            // 카메라 위치 고정
+            transform.position = fixedPosition;
+            transform.rotation = Quaternion.Euler(fixedRotation);
+        }
+        
+        if (target != null && !GameManager.Instance.isEventAnim)
         {
             // 마우스 입력
             lookInput = Mouse.current.delta.ReadValue();
@@ -51,7 +61,7 @@ public class CameraFollow : MonoBehaviour
             transform.position = target.position + rotation * offset;
             transform.LookAt(target);
         }
-    }*/
+    }
 
     private void InitSet()
     {
@@ -64,6 +74,6 @@ public class CameraFollow : MonoBehaviour
     IEnumerator InitPlayer()
     {
         yield return null;
-        target = GameManager.Instance.player;
+        target = GameManager.Instance.player.transform;
     }
 }
