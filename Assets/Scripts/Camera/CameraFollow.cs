@@ -72,7 +72,7 @@ public class CameraFollow : MonoBehaviour
 
     private void InitSet()
     {
-        offset = new Vector3(10f, 5f, -100f);
+        offset = new Vector3(10f, 5f, -50f);
         rotationSpeed = 100f;
         offsetAdjustSpeed = 100f;
         StartCoroutine(InitPlayer());

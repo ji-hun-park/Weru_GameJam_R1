@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class Scanner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnCollisionEnter(Collision other)
     {
-        
+        if (other.gameObject.tag == "Player")
+        {
+            UIManager.Instance.UIList[2].gameObject.SetActive(true);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void OnCollisionExit(Collision other)
     {
-        
+        if (other.gameObject.tag == "Player")
+        {
+            UIManager.Instance.UIList[2].gameObject.SetActive(false);
+        }
     }
 }

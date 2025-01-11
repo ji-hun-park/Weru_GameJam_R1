@@ -81,6 +81,7 @@ public class MonsterController : MonoBehaviour
     {
         // 플레이어를 바라보는 방향 계산
         dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
+        transform.Rotate(GameManager.Instance.player.transform.position);
         float timer = 0;
         while (timer < 1f)
         {

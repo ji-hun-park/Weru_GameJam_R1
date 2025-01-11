@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private bool isUsed;
+    private void OnCollisionEnter(Collision other)
     {
-        
+        if (other.gameObject.tag == "Player" && !isUsed)
+        {
+            UIManager.Instance.UIList[2].gameObject.SetActive(true);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void OnCollisionExit(Collision other)
     {
-        
+        if (other.gameObject.tag == "Player" && !isUsed)
+        {
+            UIManager.Instance.UIList[2].gameObject.SetActive(false);
+        }
     }
 }
