@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         speed = 80f;
-        jumpHeight = 10f;
+        jumpHeight = 15f;
         dash = 40f;
         rotSpeed = 5f;
         dir = Vector3.zero;
