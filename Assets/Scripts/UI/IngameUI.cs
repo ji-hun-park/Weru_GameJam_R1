@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,15 +35,23 @@ public class IngameUI : MonoBehaviour
     {
         HPSlider.value = GameManager.Instance.playerHP;
         MPSlider.value = GameManager.Instance.playerMP;
-
-        LeftTime();
     }
 
-    private void LeftTime()
+    public void StartTimer()
     {
-        minutes = (GameManager.Instance.leftTime / 60).ToString();
-        seconds = (GameManager.Instance.leftTime % 60).ToString();
-        if ((GameManager.Instance.leftTime % 60) < 10f) seconds = "0" + seconds;
-        timeText.text = minutes + ":" + seconds;
+        StartCoroutine(LeftTime());
+    }
+    
+    private IEnumerator LeftTime()
+    {
+        while (GameManager.Instance.leftTime > 0)
+        {
+            minutes = ((int)(GameManager.Instance.leftTime / 60)).ToString();
+            seconds = ((int)(GameManager.Instance.leftTime % 60)).ToString();
+            if ((GameManager.Instance.leftTime % 60) < 10f) seconds = "0" + seconds;
+            timeText.text = minutes + " : " + seconds;
+            GameManager.Instance.leftTime -= Time.deltaTime;
+            yield return null;
+        }
     }
 }

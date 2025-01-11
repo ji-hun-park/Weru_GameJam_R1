@@ -50,10 +50,12 @@ public class PlayerController : MonoBehaviour
 
             CheckGround();
 
-            if (Input.GetButtonDown("Jump") && isGrounded)
+            if (Input.GetButtonDown("Jump") && isGrounded && GameManager.Instance.playerMP >= 10f)
             {
                 Vector3 jumpPower = Vector3.up * jumpHeight;
                 rb.AddForce(jumpPower, ForceMode.VelocityChange);
+                GameManager.Instance.playerMP -= 10f;
+                GameManager.Instance.playerMP = Mathf.Max(0, GameManager.Instance.playerMP);
             }
 
             if (!isGrounded)
@@ -65,11 +67,15 @@ public class PlayerController : MonoBehaviour
                 rb.linearDamping = 10;
             }
 
-            if (Input.GetButtonDown("Dash"))
+            if (Input.GetButtonDown("Dash") && GameManager.Instance.playerMP >= 10f)
             {
                 Vector3 dashVelocity = transform.forward * dash;
                 rb.linearVelocity = new Vector3(dashVelocity.x, rb.linearVelocity.y, dashVelocity.z);
+                GameManager.Instance.playerMP -= 10f;
+                GameManager.Instance.playerMP = Mathf.Max(0, GameManager.Instance.playerMP);
             }
+            
+            GameManager.Instance.playerMP += 1f * Time.deltaTime;
         }
     }
 

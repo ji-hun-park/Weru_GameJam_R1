@@ -59,7 +59,9 @@ public class MonsterController : MonoBehaviour
             rb.MovePosition(transform.position + Vector3.up * 600f * Time.deltaTime);
             yield return null;
         }
-        
+        if (UIManager.Instance.UIList[0] != null)
+            UIManager.Instance.UIList[0].GetComponent<IngameUI>().StartTimer();
+        GameManager.Instance.playerHP += 20f;
         this.gameObject.SetActive(false);
         GameManager.Instance.isEventAnim = false;
     }

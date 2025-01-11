@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -29,9 +30,28 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject); // 기존에 존재하면 자신파괴
         }
-        
+    }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (GameManager.Instance.isIngame) StartCoroutine(InitUI());
+    }
+
+    private IEnumerator InitUI()
+    {
+        yield return new WaitForEndOfFrame();
         canvas = GameObject.FindGameObjectWithTag("Canvas");
-        
+                
         if (canvas != null)
         {
             FindIngameUI();
@@ -43,6 +63,16 @@ public class UIManager : MonoBehaviour
             FindNPCUI();
             FindOverUI();
         }
+
+        if (UIList.Count > 0 && UIList != null)
+        {
+            foreach (RectTransform UI in UIList)
+            {
+                UI.gameObject.SetActive(false);
+            }
+        }
+
+        UIList[0].gameObject.SetActive(true);
     }
 
     private void FindIngameUI()

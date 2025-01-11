@@ -39,7 +39,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // 기존에 존재하면 자신파괴
         }
-
+        
+        playerHP = 100f;
+        playerMP = 100f;
         leftTime = 600f;
     }
     
