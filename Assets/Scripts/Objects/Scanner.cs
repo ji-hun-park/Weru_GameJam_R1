@@ -14,7 +14,7 @@ public class Scanner : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F) && !UIManager.Instance.UIList[1].gameObject.activeSelf)
             {
                 Time.timeScale = 0;
                 UIManager.Instance.UIList[2].gameObject.SetActive(false);
