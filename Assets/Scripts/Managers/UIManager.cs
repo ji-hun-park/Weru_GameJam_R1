@@ -31,17 +31,25 @@ public class UIManager : MonoBehaviour
         }
         
         canvas = GameObject.FindGameObjectWithTag("Canvas");
+        
         if (canvas != null)
         {
+            FindIngameUI();
             FindChatUI();
             FindInteractUI();
             FindScreenUI();
-            FindCanvasUI();
+            FindScrollUI();
             FindPopupUI();
+            FindNPCUI();
             FindOverUI();
         }
     }
 
+    private void FindIngameUI()
+    {
+        FindUI("IngameUI");
+    }
+    
     private void FindChatUI()
     {
         FindUI("ChatUI");
@@ -57,14 +65,19 @@ public class UIManager : MonoBehaviour
         FindUI("ScreenUI");
     }
     
-    private void FindCanvasUI()
+    private void FindScrollUI()
     {
-        FindUI("CanvasUI");
+        FindUI("ScrollUI");
     }
 
     private void FindPopupUI()
     {
         FindUI("PopupUI");
+    }
+    
+    private void FindNPCUI()
+    {
+        FindUI("NPCUI");
     }
     
     private void FindOverUI()
@@ -114,8 +127,8 @@ public class UIManager : MonoBehaviour
     private IEnumerator PopupAlertMessage(string PM)
     {
         popupMessage = PM;
-        UIList[4].gameObject.SetActive(true);
+        UIList[5].gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(1f); // Time.timeScale과 상관없이 n초 대기
-        UIList[4].gameObject.SetActive(false);
+        UIList[5].gameObject.SetActive(false);
     }
 }

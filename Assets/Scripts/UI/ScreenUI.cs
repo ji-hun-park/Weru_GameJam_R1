@@ -769,7 +769,7 @@ public class ScreenUI : MonoBehaviour
 
         if (File.Exists(filePath))
         {
-            APIManager.Instance.SendRequest();
+            APIManager.Instance.SendRequestImage();
             UIManager.Instance.RunPopupCoroutine("그림이 전송됐습니다!");
         }
         else

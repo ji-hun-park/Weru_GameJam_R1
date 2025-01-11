@@ -51,15 +51,21 @@ public class APIManager : MonoBehaviour
             apiKey = JsonUtility.FromJson<ApiKeyData>(json).apiKey;
         }
 
-        maxToken = 1000;
+        maxToken = 800;
         
         apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey;   
     }
 
-    public void SendRequest()
+    public void SendRequestImage()
     {
         promptMessage = "인라인데이타로 주어진 이미지를 보고 설명해!";
-        StartCoroutine(LLMAPIRequest(promptMessage, maxToken));
+        StartCoroutine(LLMAPIRequestImage(promptMessage, maxToken));
+    }
+    
+    public void SendRequestText()
+    {
+        promptMessage = "질문에 대해 다음 키워드에 관해 설명해! 직접적인 언급은 피해!";
+        StartCoroutine(LLMAPIRequestText(promptMessage, maxToken));
     }
 
     private void ImagetoInlineData()
@@ -75,7 +81,7 @@ public class APIManager : MonoBehaviour
         }
     }
 
-    private IEnumerator LLMAPIRequest(string prompt, int maxTokens)
+    private IEnumerator LLMAPIRequestImage(string prompt, int maxTokens)
     {
         // 이미지를 InlineData로 만들기
         ImagetoInlineData();
@@ -100,6 +106,37 @@ public class APIManager : MonoBehaviour
         {
             string responseText = request.downloadHandler.text;
             ParseResponse(responseText);
+        }
+        else
+        {
+            Debug.LogError("Error: " + request.error);
+            Debug.LogError("Response: " + request.downloadHandler.text);
+        }
+    }
+    
+    private IEnumerator LLMAPIRequestText(string prompt, int maxTokens)
+    {
+        // POST로 보내기 위해 JSON 형식 데이터로 만듬
+        string jsonData = "{\"contents\":[{\"parts\":[{\"text\":\"" + prompt + "\"}]}], \"generationConfig\": {\"maxOutputTokens\": " + maxTokens + "}}";
+
+        // UnityWebRequest 보내기 위해 필요한 것 들
+        UnityWebRequest request = new UnityWebRequest(apiUrl, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+
+        // Header 작성
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        // 리퀘스트 보냄
+        yield return request.SendWebRequest();
+
+        // 성공하면 응답받고 텍스트 파싱
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            string responseText = request.downloadHandler.text;
+            ParseResponse(responseText);
+            if (isCatch) messageList.Add(apiResponse);
         }
         else
         {

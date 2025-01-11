@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Stats")]
     public float playerHP;
+    public float playerMP;
     public float leftTime;
     
     [Header("GameObjects")]
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // 기존에 존재하면 자신파괴
         }
+
+        leftTime = 600f;
     }
     
     private void OnEnable()
