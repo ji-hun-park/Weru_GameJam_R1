@@ -13,6 +13,12 @@ public class NPCUI : MonoBehaviour
     
     private void Update()
     {
+        // 키보드 Enter 버튼으로 전송
+        if (TMPInputField.text.Length > 0 && Input.GetKeyDown(KeyCode.Return))
+        {
+            OnClickSendButton();
+        }
+        
         if (APIManager.Instance.isCatch)
         {
             ChangeField();

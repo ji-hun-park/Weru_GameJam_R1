@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class PauseUI : MonoBehaviour
 {
+    public void ONClickScrollButton()
+    {
+        UIManager.Instance.UIList[8].gameObject.SetActive(false);
+        UIManager.Instance.UIList[4].gameObject.SetActive(true);
+    }
+    
     public void OnClickMainButton()
     {
         Time.timeScale = 1;

@@ -7,10 +7,10 @@ public class ScrollUI : MonoBehaviour
     public Transform content;
     public Sprite imageSprite;
     public Vector2 imageSize;
-    public int fontSize = 24;
+    public int fontSize = 30;
     void Awake()
     {
-        imageSize = new Vector2(800, 500);
+        imageSize = new Vector2(900, 500);
         /*scrollView = UIManager.Instance.FindChildByName(transform, "ScrollView").gameObject;
         if (scrollView == null)
         {
@@ -96,6 +96,7 @@ public class ScrollUI : MonoBehaviour
 
     public void OnClickReturnButton()
     {
-        UIManager.Instance.UIList[3].gameObject.SetActive(false);
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
     }    
 }
