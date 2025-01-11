@@ -62,9 +62,9 @@ public class APIManager : MonoBehaviour
         StartCoroutine(LLMAPIRequestImage(promptMessage, maxToken));
     }
     
-    public void SendRequestText()
+    public void SendRequestText(string content)
     {
-        promptMessage = "질문에 대해 다음 키워드에 관해 설명해! 직접적인 언급은 피해!";
+        promptMessage = "질문에 대해 다음 키워드에 관해 설명해! 키워드 관련 직접적인 언급은 피해! 키워드 : " + GameManager.Instance.keyWord + ", 질문 : " + content;
         StartCoroutine(LLMAPIRequestText(promptMessage, maxToken));
     }
 
@@ -136,7 +136,6 @@ public class APIManager : MonoBehaviour
         {
             string responseText = request.downloadHandler.text;
             ParseResponse(responseText);
-            if (isCatch) messageList.Add(apiResponse);
         }
         else
         {
@@ -157,6 +156,7 @@ public class APIManager : MonoBehaviour
         {
             Debug.Log("Model Response: " + modelResponse);
             apiResponse = modelResponse;
+            messageList.Add(modelResponse);
             isCatch = true;
         }
         else
