@@ -39,6 +39,7 @@ public class MonsterController : MonoBehaviour
     private IEnumerator PlayStartAnimation()
     {
         yield return new WaitForSeconds(0.1f);
+        UIManager.Instance.UIList[0].gameObject.SetActive(true);
         // 플레이어를 바라보는 방향 계산
         dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
         float timer = 0;
@@ -62,11 +63,15 @@ public class MonsterController : MonoBehaviour
             rb.MovePosition(transform.position + Vector3.up * 600f * Time.deltaTime);
             yield return null;
         }
-        if (UIManager.Instance.UIList[0] != null)
-            UIManager.Instance.UIList[0].GetComponent<IngameUI>().StartTimer();
+        
         GameManager.Instance.playerHP += 20f;
-        this.gameObject.SetActive(false);
+        
+        if (UIManager.Instance.UIList[0] != null)
+        {
+            UIManager.Instance.UIList[0].GetComponent<IngameUI>().StartTimer();
+        }
         GameManager.Instance.isEventAnim = false;
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)

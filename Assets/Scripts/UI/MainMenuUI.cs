@@ -5,6 +5,8 @@ public class MainMenuUI : MonoBehaviour
 {
     public void OnClickStartButton()
     {
+        GameManager.Instance.playerHP = 100f;
+        GameManager.Instance.playerMP = 100f;
         SceneManager.LoadScene("IngameScene");
     }
     

@@ -1,8 +1,15 @@
+using System;
 using UnityEngine;
 
 public class NPCController : MonoBehaviour
 {
     [SerializeField] private bool isUsed;
+
+    private void OnEnable()
+    {
+        isUsed = false;
+    }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag == "Player" && !isUsed)

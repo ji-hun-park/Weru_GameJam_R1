@@ -39,6 +39,7 @@ public class IngameUI : MonoBehaviour
 
     public void StartTimer()
     {
+        GameManager.Instance.leftTime = 600f;
         StartCoroutine(LeftTime());
     }
     

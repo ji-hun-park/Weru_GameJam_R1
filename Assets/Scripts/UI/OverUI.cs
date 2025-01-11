@@ -1,16 +1,31 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OverUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public TMP_Text overText;
+    public string overMessage;
 
-    // Update is called once per frame
-    void Update()
+    public void SetText(bool isOver)
     {
-        
+        overMessage = (isOver) ? "Game Clear!!!" : "Game Over!";
+        overText.text = overMessage;
+    }
+    public void OnClickMainButton()
+    {
+        Time.timeScale = 1;
+        GameManager.Instance.isIngame = false;
+        GameManager.Instance.isEventAnim = false;
+        SceneManager.LoadScene("MainMenuScene");
+    }
+    
+    public void OnClickQuitButton()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
     
     [SerializeField]private GameObject canvas;
-    public List<RectTransform> UIList = new List<RectTransform>();
+    public List<RectTransform> UIList;
     public string popupMessage;
     public string chatMessage;
     
@@ -37,7 +37,8 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UIList[8].gameObject.SetActive(!gameObject.activeSelf);
+            UIList[8].gameObject.SetActive(!UIList[8].gameObject.activeSelf);
+            Time.timeScale = UIList[8].gameObject.activeSelf ? 0f : 1f;
         }
     }
 
@@ -60,7 +61,7 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         canvas = GameObject.FindGameObjectWithTag("Canvas");
-                
+        UIList = new List<RectTransform>();
         if (canvas != null)
         {
             FindIngameUI();
@@ -82,7 +83,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        UIList[0].gameObject.SetActive(true);
+        //UIList[0].gameObject.SetActive(true);
     }
 
     private void FindIngameUI()
