@@ -1696,15 +1696,8 @@ MonoBehaviour:
   lineButton: {fileID: 796956193}
   rectButton: {fileID: 91493502}
   circleButton: {fileID: 1645913627}
-  BrushButton: {fileID: 0}
-  pencilButton: {fileID: 0}
-  penButton: {fileID: 0}
-  crayonButton: {fileID: 0}
   selectButton: {fileID: 95410019}
-  undoButton: {fileID: 0}
-  redoButton: {fileID: 0}
   eraseButton: {fileID: 329605074}
-  clearButton: {fileID: 0}
   selectionColor: {r: 0, g: 0.3962264, b: 0, a: 0.3}
 --- !u!1 &218608467
 GameObject:
@@ -11486,7 +11479,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e7ab728a212a24bbb581aceb2e8b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textArea: {fileID: 218608469}
+  chatText: {fileID: 0}
+  onSkipKeyPressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1498674957}
+        m_TargetAssemblyTypeName: ChatUI, Assembly-CSharp
+        m_MethodName: OnClickCloseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  colorHex: FF0000
+  isCorrect: 0
+  isIncorrect: 0
+  OneShot: 1
 --- !u!1001 &1505261723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14278,7 +14290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6a603524f50864ba47150ecaff4faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overText: {fileID: 0}
+  overText: {fileID: 1984360343}
   overMessage: 
 --- !u!1 &1804742464
 GameObject:

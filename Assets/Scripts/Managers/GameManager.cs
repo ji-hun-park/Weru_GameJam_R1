@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public float leftTime;
 
     [Header("Settings")]
-    private string KeyWord;
+    [SerializeField] private string KeyWord;
 
     public string keyWord
     {
