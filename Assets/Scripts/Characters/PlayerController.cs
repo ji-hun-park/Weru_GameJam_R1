@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        speed = 80f;
-        jumpHeight = 15f;
-        dash = 40f;
+        speed = 40f;
+        jumpHeight = 10f;
+        dash = 20f;
         rotSpeed = 5f;
         dir = Vector3.zero;
         
@@ -131,5 +131,13 @@ public class PlayerController : MonoBehaviour
             objectRenderer.material = originalMaterial; // 원래 Material 적용
         }
         curCo = null;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            Debug.Log("Wall");
+        }
     }
 }

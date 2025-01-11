@@ -76,7 +76,7 @@ public class CameraFollow : MonoBehaviour
         rotationSpeed = 100f;
         offsetAdjustSpeed = 100f;
         StartCoroutine(InitPlayer());
-        fixedPosition = new Vector3(0, 20, -15);
+        fixedPosition = new Vector3(0, 10, -15);
         fixedRotation = new Vector3(5, 0, 0);
     }
 
