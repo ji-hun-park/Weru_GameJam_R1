@@ -203,7 +203,7 @@ public class ScreenUI : MonoBehaviour
         if (rectButton != null) rectButton.onClick.AddListener(() => SetDrawMode(DrawMode.Rectangle));
         if (circleButton != null) circleButton.onClick.AddListener(() => SetDrawMode(DrawMode.Circle));
         if (selectButton != null) selectButton.onClick.AddListener(() => SetDrawMode(DrawMode.Select));
-        if (eraseButton != null) eraseButton.onClick.AddListener(() => ChangeColor(Color.white));
+        if (eraseButton != null) eraseButton.onClick.AddListener(() => EraseMode());
         
         // 슬라이더 이벤트 연결
         if (brushSizeSlider != null)
@@ -213,6 +213,12 @@ public class ScreenUI : MonoBehaviour
             brushSizeSlider.value = brushSize;
             brushSizeSlider.onValueChanged.AddListener(ChangeBrushSize);
         }
+    }
+
+    private void EraseMode()
+    {
+        SetDrawMode(DrawMode.Brush);
+        ChangeColor(Color.white);
     }
 
     void DeleteArea()
@@ -469,7 +475,7 @@ public class ScreenUI : MonoBehaviour
     
     void DrawBrush(int x, int y)
     {
-        //Texture2D currentTexture = GetCurrentBrushTexture();
+        Texture2D currentTexture = drawTexture;
 
         for (int i = -Mathf.FloorToInt(brushSize); i < Mathf.CeilToInt(brushSize); i++)
         {
@@ -484,10 +490,10 @@ public class ScreenUI : MonoBehaviour
                     if (distance <= brushSize)
                     {
                         // 브러쉬 질감 적용
-                        //float alpha = currentTexture.GetPixelBilinear((float)(i + brushSize) / (brushSize * 2), (float)(j + brushSize) / (brushSize * 2)).a;
+                        float alpha = currentTexture.GetPixelBilinear((float)(i + brushSize) / (brushSize * 2), (float)(j + brushSize) / (brushSize * 2)).a;
                         Color currentColor = drawTexture.GetPixel(px, py);
-                        //Color blendedColor = Color.Lerp(currentColor, drawColor, alpha);
-                        drawTexture.SetPixel(px, py, currentColor);
+                        Color blendedColor = Color.Lerp(currentColor, drawColor, alpha);
+                        drawTexture.SetPixel(px, py, blendedColor);
                     }
                 }
             }

@@ -1,8 +1,8 @@
-using System;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class ChatUI : MonoBehaviour
 {
@@ -18,6 +18,21 @@ public class ChatUI : MonoBehaviour
     private void Start()
     {
         OneShot = true;
+        InitKeyWord();
+    }
+    
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         InitKeyWord();
     }
 
@@ -38,8 +53,8 @@ public class ChatUI : MonoBehaviour
 
     public void InitKeyWord()
     {
-        originalText = "키워드 불일치 시 죽게됩니다.\r\n캔버스에 그림 그리고 저장 후 전송하세요!\r\n단축키 : 뒤로가기(ESC), 저장(S), 불러오기(L), 전송(T), 상호작용(F)\r\n되돌리기(Z), 되돌리기 취소(X), 대화는 좌클릭, 스페이스로도 스킵 가능\r\n영역 선택 후 제거(Delete), 그림 초기화(N)\r\n\r\n키워드 : "+GameManager.Instance.keyWord;
-        KeyWordChange(originalText);
+        originalText = "키워드 불일치 시 죽게됩니다.\r\n캔버스에 그림 그리고 저장 후 전송하세요!\r\n단축키 : 뒤로가기(ESC), 저장(S), 불러오기(L), 전송(T), 상호작용(F)\r\n되돌리기(Z), 되돌리기 취소(X), 대화는 좌클릭, 스페이스로도 스킵 가능\r\n영역 선택 후 제거(Delete), 그림 초기화(N)\r\n\r\n키워드 : ?";
+        chatText.text = originalText;
     }
 
     public void KeyWordChange(string message)

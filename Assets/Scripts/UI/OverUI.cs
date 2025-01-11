@@ -19,6 +19,9 @@ public class OverUI : MonoBehaviour
         GameManager.Instance.failFlag = false;
         GameManager.Instance.isIngame = false;
         GameManager.Instance.isEventAnim = false;
+        APIManager.Instance.isCatch = false;
+        APIManager.Instance.apiResponse = null;
+        APIManager.Instance.messageList.Clear();
         SceneManager.LoadScene("MainMenuScene");
     }
     
