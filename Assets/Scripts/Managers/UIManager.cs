@@ -63,6 +63,7 @@ public class UIManager : MonoBehaviour
             FindPopupUI();
             FindNPCUI();
             FindOverUI();
+            FindPauseUI();
         }
 
         if (UIList.Count > 0 && UIList != null)
@@ -114,6 +115,11 @@ public class UIManager : MonoBehaviour
     private void FindOverUI()
     {
         FindUI("OverUI");
+    }
+    
+    private void FindPauseUI()
+    {
+        FindUI("PauseUI");
     }
     
     private void FindUI(string UIName)

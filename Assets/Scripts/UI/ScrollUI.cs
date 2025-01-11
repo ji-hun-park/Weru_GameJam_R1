@@ -10,8 +10,8 @@ public class ScrollUI : MonoBehaviour
     public int fontSize = 24;
     void Awake()
     {
-        imageSize = new Vector2(800, 300);
-        scrollView = UIManager.Instance.FindChildByName(transform, "ScrollView").gameObject;
+        imageSize = new Vector2(800, 500);
+        /*scrollView = UIManager.Instance.FindChildByName(transform, "ScrollView").gameObject;
         if (scrollView == null)
         {
             Debug.LogError("ScrollView를 찾을 수 없습니다!");
@@ -23,7 +23,7 @@ public class ScrollUI : MonoBehaviour
         if (content == null)
         {
             Debug.LogError("Content를 찾을 수 없습니다!");
-        }
+        }*/
     }
 
     void OnEnable()
