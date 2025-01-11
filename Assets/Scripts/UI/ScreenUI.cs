@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 
 public class ScreenUI : MonoBehaviour
 {
-    public enum BrushType { Brush, Pencil, Pen, Crayon }
     public enum DrawMode { Brush, Line, Rectangle, Circle, Select }
     
     public RawImage targetImage; // 그림을 그릴 UI Image (RawImage 사용 권장)
@@ -32,15 +30,8 @@ public class ScreenUI : MonoBehaviour
     public Button lineButton;  // 직선 그리기
     public Button rectButton;  // 사각형 그리기
     public Button circleButton;// 원형 그리기
-    public Button BrushButton; // 기본 브러쉬
-    public Button pencilButton;// 연필 질감
-    public Button penButton;   // 만년필 질감
-    public Button crayonButton;// 크레파스 질감
     public Button selectButton; // 영역선택 버튼
-    public Button undoButton; // 되돌리기 버튼
-    public Button redoButton; // 원래대로 버튼
     public Button eraseButton; // 지우개 버튼
-    public Button clearButton; // 선택 영역 지우기 버튼
     
     private Texture2D drawTexture;  // 기본 질감
     private Texture2D pencilTexture;// 연필 질감
@@ -49,7 +40,6 @@ public class ScreenUI : MonoBehaviour
     private Texture2D tmpT2D;
     private Sprite iconSprite;
     private RectTransform rectTransform;
-    private BrushType currentBrush = BrushType.Brush;
     private DrawMode currentMode = DrawMode.Brush;
     private Vector2 selectionStart;  // 선택 시작점
     private Vector2 selectionEnd;    // 선택 끝점
@@ -212,14 +202,8 @@ public class ScreenUI : MonoBehaviour
         if (lineButton != null) lineButton.onClick.AddListener(() => SetDrawMode(DrawMode.Line));
         if (rectButton != null) rectButton.onClick.AddListener(() => SetDrawMode(DrawMode.Rectangle));
         if (circleButton != null) circleButton.onClick.AddListener(() => SetDrawMode(DrawMode.Circle));
-        if (pencilButton != null) pencilButton.onClick.AddListener(() => SetBrushType(BrushType.Pencil));
-        if (penButton != null) penButton.onClick.AddListener(() => SetBrushType(BrushType.Pen));
-        if (crayonButton != null) crayonButton.onClick.AddListener(() => SetBrushType(BrushType.Crayon));
-        if (undoButton != null) undoButton.onClick.AddListener(() => Undo());
-        if (redoButton != null) redoButton.onClick.AddListener(() => Redo());
         if (selectButton != null) selectButton.onClick.AddListener(() => SetDrawMode(DrawMode.Select));
         if (eraseButton != null) eraseButton.onClick.AddListener(() => ChangeColor(Color.white));
-        if (clearButton != null) clearButton.onClick.AddListener(() => DeleteArea());
         
         // 슬라이더 이벤트 연결
         if (brushSizeSlider != null)
@@ -229,26 +213,6 @@ public class ScreenUI : MonoBehaviour
             brushSizeSlider.value = brushSize;
             brushSizeSlider.onValueChanged.AddListener(ChangeBrushSize);
         }
-        
-        // 아이콘 세팅
-        tmpT2D = Resources.Load<Texture2D>("Icons/Brush");
-        iconSprite = Sprite.Create(tmpT2D, new Rect(0, 0, tmpT2D.width, tmpT2D.height), new Vector2(0.5f, 0.5f));
-        if (BrushButton != null) BrushButton.gameObject.GetComponent<Image>().sprite = iconSprite;
-        tmpT2D = Resources.Load<Texture2D>("Icons/Pencil");
-        iconSprite = Sprite.Create(tmpT2D, new Rect(0, 0, tmpT2D.width, tmpT2D.height), new Vector2(0.5f, 0.5f));
-        if (pencilButton != null) pencilButton.gameObject.GetComponent<Image>().sprite = iconSprite;
-        tmpT2D = Resources.Load<Texture2D>("Icons/Pen");
-        iconSprite = Sprite.Create(tmpT2D, new Rect(0, 0, tmpT2D.width, tmpT2D.height), new Vector2(0.5f, 0.5f));
-        if (penButton != null) penButton.gameObject.GetComponent<Image>().sprite = iconSprite;
-        tmpT2D = Resources.Load<Texture2D>("Icons/Crayon");
-        iconSprite = Sprite.Create(tmpT2D, new Rect(0, 0, tmpT2D.width, tmpT2D.height), new Vector2(0.5f, 0.5f));
-        if (crayonButton != null) crayonButton.gameObject.GetComponent<Image>().sprite = iconSprite;
-        tmpT2D = Resources.Load<Texture2D>("Icons/SelectArea");
-        iconSprite = Sprite.Create(tmpT2D, new Rect(20f, 20f, tmpT2D.width-20f, tmpT2D.height-20f), new Vector2(0.5f, 0.5f));
-        if (selectButton != null) selectButton.gameObject.GetComponent<Image>().sprite = iconSprite;
-        
-        // 브러쉬 질감 텍스처들 가져오기
-        LoadBrushTextures();
     }
 
     void DeleteArea()
@@ -505,7 +469,7 @@ public class ScreenUI : MonoBehaviour
     
     void DrawBrush(int x, int y)
     {
-        Texture2D currentTexture = GetCurrentBrushTexture();
+        //Texture2D currentTexture = GetCurrentBrushTexture();
 
         for (int i = -Mathf.FloorToInt(brushSize); i < Mathf.CeilToInt(brushSize); i++)
         {
@@ -520,33 +484,15 @@ public class ScreenUI : MonoBehaviour
                     if (distance <= brushSize)
                     {
                         // 브러쉬 질감 적용
-                        float alpha = currentTexture.GetPixelBilinear((float)(i + brushSize) / (brushSize * 2),
-                                                                      (float)(j + brushSize) / (brushSize * 2)).a;
+                        //float alpha = currentTexture.GetPixelBilinear((float)(i + brushSize) / (brushSize * 2), (float)(j + brushSize) / (brushSize * 2)).a;
                         Color currentColor = drawTexture.GetPixel(px, py);
-                        Color blendedColor = Color.Lerp(currentColor, drawColor, alpha);
-                        drawTexture.SetPixel(px, py, blendedColor);
+                        //Color blendedColor = Color.Lerp(currentColor, drawColor, alpha);
+                        drawTexture.SetPixel(px, py, currentColor);
                     }
                 }
             }
         }
         drawTexture.Apply();
-    }
-
-    Texture2D GetCurrentBrushTexture()
-    {
-        switch (currentBrush)
-        {
-            case BrushType.Pencil: return pencilTexture;
-            case BrushType.Pen: return penTexture;
-            case BrushType.Crayon: return crayonTexture;
-            default: return drawTexture;
-        }
-    }
-
-    void SetBrushType(BrushType brushType)
-    {
-        currentBrush = brushType;
-        Debug.Log($"브러쉬 변경: {brushType}");
     }
 
     void LoadBrushTextures()
@@ -840,6 +786,7 @@ public class ScreenUI : MonoBehaviour
 
     public void OnClickReturnButton()
     {
+        Time.timeScale = 1;
         gameObject.SetActive(false);
     }
 }

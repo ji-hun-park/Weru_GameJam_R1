@@ -1385,9 +1385,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a73d165954d42499d547619c147154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHP: 0
+  playerMP: 0
+  leftTime: 0
+  onFlagTrue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1137182701}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: GameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   player: {fileID: 0}
   npc: {fileID: 0}
   tmp: {fileID: 0}
+  animMon: {fileID: 0}
+  isEventAnim: 0
+  isIngame: 0
+  ClearFlag: 0
+  FailFlag: 0
+  KeyWordList: []
 --- !u!1 &1175567941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1435,6 +1459,7 @@ MonoBehaviour:
   promptMessage: 
   apiResponse: 
   isCatch: 0
+  messageList: []
 --- !u!1 &1409257066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,6 +1640,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   UIList: []
   popupMessage: 
+  chatMessage: 
 --- !u!1001 &1893975578
 PrefabInstance:
   m_ObjectHideFlags: 0

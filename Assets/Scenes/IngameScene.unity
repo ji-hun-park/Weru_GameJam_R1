@@ -128,7 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19293730}
-  - component: {fileID: 19293732}
   - component: {fileID: 19293731}
   m_Layer: 5
   m_Name: NPCUI
@@ -169,23 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8357079a0d1d04245b2d64cbd92af877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &19293732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19293729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94fc57b12000c57448c4ac307c496a36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollView: {fileID: 0}
-  content: {fileID: 0}
-  imageSprite: {fileID: 0}
-  imageSize: {x: 0, y: 0}
-  fontSize: 24
 --- !u!1 &54466315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,7 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c105efca9b1e9243b0428dce2f4aedc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetImage: {fileID: 0}
+  targetImage: {fileID: 1944964008}
   textureWidth: 512
   textureHeight: 512
   drawColor: {r: 0, g: 0, b: 0, a: 1}
@@ -14636,6 +14618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ef634d33e579b4caacb6719c750df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popupText: {fileID: 1647700597}
 --- !u!1001 &1816247656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15801,7 +15784,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1944964005}
   - component: {fileID: 1944964007}
-  - component: {fileID: 1944964006}
+  - component: {fileID: 1944964008}
   m_Layer: 5
   m_Name: DrawPaper
   m_TagString: Untagged
@@ -15828,7 +15811,15 @@ RectTransform:
   m_AnchoredPosition: {x: -130, y: 0}
   m_SizeDelta: {x: 1000, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1944964006
+--- !u!222 &1944964007
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944964004}
+  m_CullTransparentMesh: 1
+--- !u!114 &1944964008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15837,7 +15828,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1944964004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -15848,24 +15839,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1944964007
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944964004}
-  m_CullTransparentMesh: 1
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1949554662
 GameObject:
   m_ObjectHideFlags: 0

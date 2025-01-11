@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +14,17 @@ public class GameManager : MonoBehaviour
     public float playerHP;
     public float playerMP;
     public float leftTime;
+
+    [Header("Settings")]
+    private string KeyWord;
+
+    public string keyWord
+    {
+        get => KeyWord; set => KeyWord = value;
+    }
+    
+    public event Action OnFlagTrue; // 이벤트 선언
+    public UnityEvent onFlagTrue; // UnityEvent 선언
     
     [Header("GameObjects")]
     public GameObject player;
@@ -21,10 +35,44 @@ public class GameManager : MonoBehaviour
     [Header("Flags")]
     public bool isEventAnim;
     public bool isIngame;
+    [SerializeField] private bool ClearFlag;
+    public bool clearFlag
+    {
+        get => ClearFlag;
+        set
+        {
+            if (!ClearFlag && value) // 값이 false에서 true로 변경될 때만 실행
+            {
+                ClearFlag = value;
+                OnFlagTrue?.Invoke(); // 이벤트 발생
+            }
+            else
+            {
+                ClearFlag = value;
+            }
+        }
+    }
+    [SerializeField] private bool FailFlag;
+    public bool failFlag
+    {
+        get => FailFlag;
+        set
+        {
+            if (!FailFlag && value) // 값이 false에서 true로 변경될 때만 실행
+            {
+                FailFlag = value;
+                onFlagTrue?.Invoke(); // UnityEvent 호출
+            }
+            else
+            {
+                FailFlag = value;
+            }
+        }
+    }
     
     [Header("Lists")]
     [SerializeField]
-    private List<string> KeyWordList = new List<string>();
+    private List<string> KeyWordList;
     
     // Update is called once per frame
     private void Awake()
@@ -43,6 +91,18 @@ public class GameManager : MonoBehaviour
         playerHP = 100f;
         playerMP = 100f;
         leftTime = 600f;
+        
+        KeyWordListSetting();
+        
+        OnFlagTrue += HandleFlagTrue; // 이벤트 구독
+    }
+    
+    private void HandleFlagTrue()
+    {
+        Debug.Log("GameClear");
+        Time.timeScale = 0;
+        UIManager.Instance.UIList[7].gameObject.SetActive(true);
+        UIManager.Instance.UIList[7].GetComponent<OverUI>().SetText(true);
     }
     
     private void OnEnable()
@@ -64,6 +124,7 @@ public class GameManager : MonoBehaviour
             isEventAnim = true;
         }
         InitializeScene(scene);
+        SelectKeyWord();
     }
 
     private void InitializeScene(Scene scene)
@@ -82,8 +143,18 @@ public class GameManager : MonoBehaviour
         return tmp;
     }
     
+    public void GameOver()
+    {
+        Debug.Log("GameOver!");
+        Time.timeScale = 0;
+        UIManager.Instance.UIList[7].gameObject.SetActive(true);
+        UIManager.Instance.UIList[7].GetComponent<OverUI>().SetText(false);
+    }
+    
     private void KeyWordListSetting()
     {
+        KeyWordList = new List<string>();
+        
         KeyWordList.Add("곰");
         KeyWordList.Add("나무");
         KeyWordList.Add("사람");
@@ -184,5 +255,10 @@ public class GameManager : MonoBehaviour
         KeyWordList.Add("뱀");
         KeyWordList.Add("새");
         KeyWordList.Add("백조");
+    }
+
+    public void SelectKeyWord()
+    {
+        keyWord = KeyWordList[Random.Range(0, KeyWordList.Count)];
     }
 }
