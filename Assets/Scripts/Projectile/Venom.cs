@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Venom : MonoBehaviour
 {
-    private float moveSpeed = 10;
+    private float moveSpeed = 200;
 
     // Update is called once per frame
     void Update()

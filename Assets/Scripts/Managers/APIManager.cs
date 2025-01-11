@@ -27,6 +27,8 @@ public class APIManager : MonoBehaviour
     {
         public string apiKey;
     }
+    
+    public List<string> messageList = new List<string>();
 
     private void Awake()
     {

@@ -43,13 +43,25 @@ public class MonsterController : MonoBehaviour
         while (timer < 2f)
         {
             timer += Time.deltaTime;
-            rb.MovePosition(transform.position + dir * 40f * Time.deltaTime);
+            rb.MovePosition(transform.position + dir * 300f * Time.deltaTime);
             yield return null;
         }
 
         SpawnVenom();
-        //this.gameObject.SetActive(false);
-        //GameManager.Instance.isEventAnim = false;
+        
+        yield return new WaitForSeconds(1f);
+        
+        rb.useGravity = false;
+        
+        while (timer < 3f)
+        {
+            timer += Time.deltaTime;
+            rb.MovePosition(transform.position + Vector3.up * 600f * Time.deltaTime);
+            yield return null;
+        }
+        
+        this.gameObject.SetActive(false);
+        GameManager.Instance.isEventAnim = false;
     }
 
     private GameObject SpawnVenom()

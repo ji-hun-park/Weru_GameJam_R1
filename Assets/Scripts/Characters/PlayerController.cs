@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,20 +10,33 @@ public class PlayerController : MonoBehaviour
     public float dash;
     public float rotSpeed;
     
+    public Material venomMaterial;  // 감염 Material
+    private Material originalMaterial; // 원래 Material
+    private Renderer objectRenderer;
+    private Transform body;
+    
     private Vector3 dir;
     
     public bool isGrounded = false;
     public LayerMask layer;
+    public Coroutine curCo;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        speed = 5f;
+        speed = 80f;
         jumpHeight = 10f;
-        dash = 5f;
-        rotSpeed = 3f;
+        dash = 40f;
+        rotSpeed = 5f;
         dir = Vector3.zero;
+        
+        body = transform.Find("Body");
+        objectRenderer = body.gameObject.GetComponent<Renderer>();
+        if (objectRenderer != null && body != null )
+        {
+            originalMaterial = objectRenderer.material;
+        }
     }
 
     // Update is called once per frame
@@ -95,5 +109,26 @@ public class PlayerController : MonoBehaviour
     public void Damaged()
     {
         Debug.Log("Damaged!");
+        
+        if (curCo == null)
+            curCo = StartCoroutine(DamCo());
+    }
+
+    private IEnumerator DamCo()
+    {
+        if (objectRenderer != null)
+        {
+            objectRenderer.material = venomMaterial; // 감염 Material 적용
+        }
+
+        GameManager.Instance.playerHP -= 20f;
+        GameManager.Instance.playerHP = Mathf.Max(GameManager.Instance.playerHP, 0);
+        
+        yield return new WaitForSeconds(1f);
+        if (objectRenderer != null)
+        {
+            objectRenderer.material = originalMaterial; // 원래 Material 적용
+        }
+        curCo = null;
     }
 }
