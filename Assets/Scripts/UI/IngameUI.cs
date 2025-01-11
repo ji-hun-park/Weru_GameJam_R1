@@ -54,5 +54,6 @@ public class IngameUI : MonoBehaviour
             GameManager.Instance.leftTime -= Time.deltaTime;
             yield return null;
         }
+        GameManager.Instance.failFlag = true;
     }
 }

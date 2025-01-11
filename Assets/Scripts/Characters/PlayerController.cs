@@ -138,6 +138,12 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.playerHP -= 20f;
         GameManager.Instance.playerHP = Mathf.Max(GameManager.Instance.playerHP, 0);
         GameManager.Instance.playerHP = Mathf.Clamp(GameManager.Instance.playerHP, 0f, 100f);
+
+        if (GameManager.Instance.playerHP <= 0f)
+        {
+            objectRenderer.material = originalMaterial; // 원래 Material 적용
+            //GameManager.Instance.failFlag = true;
+        }
         
         yield return new WaitForSeconds(1f);
         if (objectRenderer != null)
