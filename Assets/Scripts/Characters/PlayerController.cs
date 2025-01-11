@@ -67,8 +67,8 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Dash"))
             {
-                Vector3 dashPower = this.transform.forward * -Mathf.Log(1 / rb.linearDamping) * dash;
-                rb.AddForce(dashPower, ForceMode.VelocityChange);
+                Vector3 dashVelocity = transform.forward * dash;
+                rb.linearVelocity = new Vector3(dashVelocity.x, rb.linearVelocity.y, dashVelocity.z);
             }
         }
     }
@@ -88,15 +88,14 @@ public class PlayerController : MonoBehaviour
                 transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotSpeed);
             }
 
-            rb.MovePosition(transform.position + dir * speed * Time.deltaTime);
+            rb.MovePosition(rb.position + (dir * speed * Time.deltaTime));
         }
     }
 
     void CheckGround()
     {
         RaycastHit hit;
-
-        if (Physics.Raycast(transform.position + (Vector3.up * 0.2f), Vector3.down, out hit, 0.4f, layer))
+        if (Physics.Raycast(transform.position + Vector3.up * 0.2f, Vector3.down, out hit, 0.5f, layer))
         {
             isGrounded = true;
         }
@@ -104,6 +103,8 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+
+        Debug.DrawRay(transform.position + Vector3.up * 0.2f, Vector3.down * 0.5f, Color.red);
     }
 
     public void Damaged()
