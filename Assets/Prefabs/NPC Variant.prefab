@@ -123,3 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e333d374f3c1194b8646c91dd1901ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsed: 0
+  usedMaterial: {fileID: 2100000, guid: 5cd2db569d6f6094ba10c2355c8d255f, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 2e3192ed6b49c2c43800ed748f8e445e, type: 2}

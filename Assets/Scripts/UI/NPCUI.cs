@@ -28,6 +28,7 @@ public class NPCUI : MonoBehaviour
     private void OnEnable()
     {
         oneShot = true;
+        TMPText.text = "아래에 질문을 입력하세요!";
     }
 
     public void OnClickSendButton()
@@ -55,6 +56,7 @@ public class NPCUI : MonoBehaviour
 
     public void OnClickReturnButton()
     {
+        rectTransform.gameObject.SetActive(false);
         Time.timeScale = 1;
         APIManager.Instance.isCatch = false;
         gameObject.SetActive(false);
