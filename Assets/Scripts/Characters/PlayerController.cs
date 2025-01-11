@@ -26,9 +26,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         speed = 40f;
-        jumpHeight = 10f;
-        dash = 20f;
-        rotSpeed = 5f;
+        jumpHeight = 20f;
+        dash = 60f;
+        rotSpeed = 10f;
         dir = Vector3.zero;
         
         body = transform.Find("Body");
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 rb.linearDamping = 10;
             }
 
-            if (Input.GetButtonDown("Dash") && GameManager.Instance.playerMP >= 10f)
+            if (Input.GetButtonDown("Dash") && isGrounded && GameManager.Instance.playerMP >= 10f)
             {
                 Vector3 dashVelocity = transform.forward * dash;
                 rb.linearVelocity = new Vector3(dashVelocity.x, rb.linearVelocity.y, dashVelocity.z);
@@ -98,10 +98,10 @@ public class PlayerController : MonoBehaviour
                     transform.Rotate(0, 1, 0);
                 }
 
-                transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotSpeed);
+                transform.forward = Vector3.Lerp(transform.forward, -dir, Time.deltaTime * rotSpeed);
             }
 
-            rb.MovePosition(rb.position + (dir * speed * Time.deltaTime));
+            rb.MovePosition(rb.position - (dir * speed * Time.deltaTime));
         }
     }
 

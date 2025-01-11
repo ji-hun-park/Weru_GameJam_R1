@@ -66,13 +66,14 @@ public class CameraFollow : MonoBehaviour
             // 카메라 회전
             Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
             transform.position = target.position + rotation * offset;
+            //transform.rotation = Quaternion.Euler(new Vector3(0f, 100f, 0f));
             transform.LookAt(target);
         }
     }
 
     private void InitSet()
     {
-        offset = new Vector3(10f, 5f, -50f);
+        offset = new Vector3(0f, 100f, 120f);
         rotationSpeed = 100f;
         offsetAdjustSpeed = 100f;
         StartCoroutine(InitPlayer());

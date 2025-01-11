@@ -32,7 +32,15 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject); // 기존에 존재하면 자신파괴
         }
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIList[8].gameObject.SetActive(!gameObject.activeSelf);
+        }
+    }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
