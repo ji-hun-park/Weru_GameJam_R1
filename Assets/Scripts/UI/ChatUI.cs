@@ -1,16 +1,13 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public class ChatUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public TMP_Text textArea;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        textArea.text = UIManager.Instance.chatMessage;
     }
 }

@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]private GameObject canvas;
     public List<RectTransform> UIList = new List<RectTransform>();
     public string popupMessage;
+    public string chatMessage;
     
     /*[Header("Scripts")]
     public AlertUI altUI;
