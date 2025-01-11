@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
                 rb.AddForce(jumpPower, ForceMode.VelocityChange);
                 GameManager.Instance.playerMP -= 10f;
                 GameManager.Instance.playerMP = Mathf.Max(0, GameManager.Instance.playerMP);
+                GameManager.Instance.playerMP = Mathf.Clamp(GameManager.Instance.playerMP, 0f, 100f);
             }
 
             if (!isGrounded)
@@ -73,9 +74,15 @@ public class PlayerController : MonoBehaviour
                 rb.linearVelocity = new Vector3(dashVelocity.x, rb.linearVelocity.y, dashVelocity.z);
                 GameManager.Instance.playerMP -= 10f;
                 GameManager.Instance.playerMP = Mathf.Max(0, GameManager.Instance.playerMP);
+                GameManager.Instance.playerMP = Mathf.Clamp(GameManager.Instance.playerMP, 0f, 100f);
             }
-            
-            GameManager.Instance.playerMP += 1f * Time.deltaTime;
+
+            if (GameManager.Instance.playerMP <= 100f)
+            {
+                GameManager.Instance.playerMP += 3f * Time.deltaTime;
+                GameManager.Instance.playerMP = Mathf.Min(100f, GameManager.Instance.playerMP);
+                GameManager.Instance.playerMP = Mathf.Clamp(GameManager.Instance.playerMP, 0f, 100f);
+            }
         }
     }
 
@@ -130,6 +137,7 @@ public class PlayerController : MonoBehaviour
 
         GameManager.Instance.playerHP -= 20f;
         GameManager.Instance.playerHP = Mathf.Max(GameManager.Instance.playerHP, 0);
+        GameManager.Instance.playerHP = Mathf.Clamp(GameManager.Instance.playerHP, 0f, 100f);
         
         yield return new WaitForSeconds(1f);
         if (objectRenderer != null)

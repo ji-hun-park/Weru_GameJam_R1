@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Venom : MonoBehaviour
 {
-    private float moveSpeed = 200;
+    private float moveSpeed = 75;
 
     // Update is called once per frame
     void Update()
@@ -25,7 +25,7 @@ public class Venom : MonoBehaviour
 
     private IEnumerator LifeCycle()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         DestroyVenom();
     }
 

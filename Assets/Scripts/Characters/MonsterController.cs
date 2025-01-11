@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class MonsterController : MonoBehaviour
     
     private Vector3 rotationOffset = new Vector3(0f, -90f, 90f);
     private Vector3 dir;
+
+    private Coroutine atkCo;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,6 +67,30 @@ public class MonsterController : MonoBehaviour
         GameManager.Instance.playerHP += 20f;
         this.gameObject.SetActive(false);
         GameManager.Instance.isEventAnim = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && myType == Enemy.Normal)
+        {
+            if (atkCo == null) atkCo = StartCoroutine(ProjectileAttack());
+        }
+    }
+
+    private IEnumerator ProjectileAttack()
+    {
+        // 플레이어를 바라보는 방향 계산
+        dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
+        float timer = 0;
+        while (timer < 1f)
+        {
+            timer += Time.deltaTime;
+            rb.MovePosition(transform.position + dir * 300f * Time.deltaTime);
+            yield return null;
+        }
+        SpawnVenom();
+        yield return new WaitForSeconds(1f);
+        atkCo = null;
     }
 
     private GameObject SpawnVenom()
