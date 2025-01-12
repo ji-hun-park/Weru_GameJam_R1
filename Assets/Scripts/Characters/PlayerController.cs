@@ -98,10 +98,24 @@ public class PlayerController : MonoBehaviour
                     transform.Rotate(0, 1, 0);
                 }
 
-                transform.forward = Vector3.Lerp(transform.forward, -dir, Time.deltaTime * rotSpeed);
+                if (GameManager.Instance.isRevers)
+                {
+                    transform.forward = Vector3.Lerp(transform.forward, dir, Time.deltaTime * rotSpeed);
+                }
+                else
+                {
+                    transform.forward = Vector3.Lerp(transform.forward, -dir, Time.deltaTime * rotSpeed);
+                }
             }
 
-            rb.MovePosition(rb.position - (dir * speed * Time.deltaTime));
+            if (GameManager.Instance.isRevers)
+            {
+                rb.MovePosition(rb.position + (dir * speed * Time.deltaTime));
+            }
+            else
+            {
+                rb.MovePosition(rb.position - (dir * speed * Time.deltaTime));
+            }
         }
     }
 

@@ -15,6 +15,8 @@ public class CameraFollow : MonoBehaviour
     public Vector3 dir = Vector3.zero;
     public Vector3 fixedPosition = new Vector3(0, 10, -15);
     public Vector3 fixedRotation = new Vector3(5, 0, 0);
+    public Vector3 fixedRotN = new Vector3(0, 0, 0);
+    public Vector3 fixedRotR = new Vector3(0, 180, 0);
     
     private void Start()
     {
@@ -53,6 +55,22 @@ public class CameraFollow : MonoBehaviour
             // 카메라 위치 고정
             transform.position = fixedPosition;
             transform.rotation = Quaternion.Euler(fixedRotation);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (GameManager.Instance.isRevers)
+            {
+                //transform.rotation = Quaternion.Euler(fixedRotN);
+                //transform.rotation = Quaternion.Euler(fixedRotN);
+                GameManager.Instance.isRevers = false;
+            }
+            else
+            {
+                //transform.rotation = Quaternion.Euler(fixedRotR);
+                //transform.rotation = Quaternion.Euler(fixedRotR);
+                GameManager.Instance.isRevers = true;
+            }
         }
         
         if (target != null && !GameManager.Instance.isEventAnim)

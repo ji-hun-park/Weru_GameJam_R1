@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Venom : MonoBehaviour
 {
-    private float moveSpeed = 90;
-
+    private float moveSpeed = 120;
+    private Vector3 targetPosition;
+    private Vector3 dir;
+    
     // Update is called once per frame
     void Update()
     {
@@ -14,18 +16,21 @@ public class Venom : MonoBehaviour
 
     private void OnEnable()
     {
+        dir = GameManager.Instance.player.transform.position - transform.position;
+        targetPosition = GameManager.Instance.player.transform.position;
+        targetPosition.y = transform.position.y;
+        transform.LookAt(targetPosition);
         StartCoroutine(LifeCycle());
     }
 
     private void GuidedMissile()
     {
-        transform.Rotate(GameManager.Instance.player.transform.position);
-        transform.position = Vector3.MoveTowards(transform.position, GameManager.Instance.player.transform.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition + dir, moveSpeed * Time.deltaTime);
     }
 
     private IEnumerator LifeCycle()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         DestroyVenom();
     }
 

@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     [Header("Flags")]
     public bool isEventAnim;
     public bool isIngame;
+    public bool isRevers;
     [SerializeField] private bool ClearFlag;
     public bool clearFlag
     {
