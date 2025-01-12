@@ -44,6 +44,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.superJumping)
+        {
+            jumpHeight = 80f;
+        }
+        else
+        {
+            jumpHeight = 40f;
+        }
+        
         if (!GameManager.Instance.isEventAnim)
         {
             dir.x = Input.GetAxis("Horizontal");
@@ -52,11 +61,11 @@ public class PlayerController : MonoBehaviour
 
             CheckGround();
 
-            if (Input.GetButtonDown("Jump") && isGrounded && GameManager.Instance.playerMP >= 10f)
+            if (Input.GetButtonDown("Jump") && isGrounded && GameManager.Instance.playerMP >= 20f)
             {
                 Vector3 jumpPower = Vector3.up * jumpHeight;
                 rb.AddForce(jumpPower, ForceMode.VelocityChange);
-                GameManager.Instance.playerMP -= 10f;
+                GameManager.Instance.playerMP -= 20f;
                 GameManager.Instance.playerMP = Mathf.Max(0, GameManager.Instance.playerMP);
                 GameManager.Instance.playerMP = Mathf.Clamp(GameManager.Instance.playerMP, 0f, 100f);
             }
@@ -167,8 +176,9 @@ public class PlayerController : MonoBehaviour
 
         if (GameManager.Instance.playerHP <= 0f)
         {
+            Debug.Log("HP 0!");
             objectRenderer.material = originalMaterial; // 원래 Material 적용
-            //GameManager.Instance.failFlag = true;
+            GameManager.Instance.failFlag = true;
         }
         
         yield return new WaitForSeconds(1f);

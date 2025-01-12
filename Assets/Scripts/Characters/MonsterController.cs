@@ -13,13 +13,14 @@ public class MonsterController : MonoBehaviour
     public Enemy myType;
     public Rigidbody rb;
     public GameObject venomPrefab;
-    
+    public float maxDistance = 300f;
+
+    private Vector3 initialPosition;
     private Vector3 targetPosition;
     private Vector3 dir;
 
     private Coroutine atkCo;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,12 +29,17 @@ public class MonsterController : MonoBehaviour
         {
             StartCoroutine(PlayStartAnimation());
         }
+        
+        initialPosition = transform.position;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        //
+        if (Vector3.Distance(initialPosition, transform.position) > maxDistance)
+        {
+            StopCoroutine(ProjectileAttack());
+            rb.MovePosition(transform.position + (initialPosition - transform.position) * 300f * Time.deltaTime);;
+        }
     }
 
     private IEnumerator PlayStartAnimation()

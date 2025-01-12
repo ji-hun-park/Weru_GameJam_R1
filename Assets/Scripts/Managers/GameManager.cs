@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public bool isEventAnim;
     public bool isIngame;
     public bool isRevers;
+    public bool superJumping;
     [SerializeField] private bool ClearFlag;
     public bool clearFlag
     {

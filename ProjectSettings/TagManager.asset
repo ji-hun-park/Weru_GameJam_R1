@@ -8,6 +8,8 @@ TagManager:
   - NPC
   - Monster
   - AnimMonster
+  - Floor
+  - Wall
   layers:
   - Default
   - TransparentFX

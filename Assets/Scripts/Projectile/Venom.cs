@@ -41,6 +41,11 @@ public class Venom : MonoBehaviour
             GameManager.Instance.player.gameObject.GetComponent<PlayerController>().Damaged();
             DestroyVenom();
         }
+        
+        if (other.CompareTag("Wall") || other.CompareTag("Floor"))
+        {
+            DestroyVenom();
+        }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Wall") || other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
