@@ -14,7 +14,7 @@ public class MonsterController : MonoBehaviour
     public Rigidbody rb;
     public GameObject venomPrefab;
     
-    private Vector3 rotationOffset = new Vector3(0f, -90f, 90f);
+    private Vector3 targetPosition;
     private Vector3 dir;
 
     private Coroutine atkCo;
@@ -86,7 +86,9 @@ public class MonsterController : MonoBehaviour
     {
         // 플레이어를 바라보는 방향 계산
         dir = (GameManager.Instance.player.transform.position - transform.position).normalized;
-        transform.Rotate(GameManager.Instance.player.transform.position);
+        targetPosition = GameManager.Instance.player.transform.position;
+        targetPosition.y = transform.position.y;
+        transform.LookAt(targetPosition);
         float timer = 0;
         while (timer < 1f)
         {

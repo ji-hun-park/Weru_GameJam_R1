@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight;
     public float dash;
     public float rotSpeed;
+    public float fallMultiplier = 2.5f;  // 빠른 낙하를 위한 중력 배수
+    public float lowJumpMultiplier = 2f; // 짧은 점프 제어
     
     public Material venomMaterial;  // 감염 Material
     private Material originalMaterial; // 원래 Material
@@ -26,8 +28,8 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         speed = 40f;
-        jumpHeight = 20f;
-        dash = 60f;
+        jumpHeight = 40f;
+        dash = 80f;
         rotSpeed = 10f;
         dir = Vector3.zero;
         
@@ -66,6 +68,16 @@ public class PlayerController : MonoBehaviour
             else
             {
                 rb.linearDamping = 10;
+            }
+            
+            // 낙하 속도 조정 (빠른 낙하 적용)
+            if (rb.linearVelocity.y < 0)
+            {
+                rb.linearVelocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+            else if (rb.linearVelocity.y > 0 && !Input.GetButton("Jump"))
+            {
+                rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             }
 
             if (Input.GetButtonDown("Dash") && isGrounded && GameManager.Instance.playerMP >= 10f)

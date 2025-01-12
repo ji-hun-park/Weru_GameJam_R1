@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     
     [Header("GameObjects")]
     public GameObject player;
-    public GameObject npc;
     public GameObject tmp;
     public GameObject animMon;
 
@@ -133,7 +132,6 @@ public class GameManager : MonoBehaviour
         if (isIngame)
         {
             player = FindWithTag("Player");
-            npc = FindWithTag("NPC");
             animMon = FindWithTag("AnimMonster");
         }
     }
@@ -182,7 +180,7 @@ public class GameManager : MonoBehaviour
         KeyWordList.Add("가방");
         KeyWordList.Add("모자");
         KeyWordList.Add("커튼");
-        KeyWordList.Add("폰");
+        KeyWordList.Add("전화");
         KeyWordList.Add("휴지");
         KeyWordList.Add("종이");
         KeyWordList.Add("배");

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Venom : MonoBehaviour
 {
-    private float moveSpeed = 120;
+    private float moveSpeed = 150;
     private Vector3 targetPosition;
     private Vector3 dir;
     
