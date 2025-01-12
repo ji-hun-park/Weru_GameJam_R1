@@ -17,6 +17,7 @@ public class APIManager : MonoBehaviour
     public string promptMessage = null;
     public string apiResponse = null;
     public bool isCatch;
+    public bool isError;
     private int maxToken;
     private string apiUrl = null;
     private string apiKey = null;
@@ -64,7 +65,7 @@ public class APIManager : MonoBehaviour
     
     public void SendRequestText(string content)
     {
-        promptMessage = "질문에 대해 다음 키워드에 관해 설명해! 키워드 관련 직접적인 언급은 피해! 키워드 : " + GameManager.Instance.keyWord + ", 질문 : " + content;
+        promptMessage = "지금부터 키워드와 질문이 주어질거야 키워드에 관해서 질문에 답변해! 키워드 관련 직접적인 언급은 피해! 키워드 : " + GameManager.Instance.keyWord + ", 질문 : " + content + ", 키워드 직접 언급하지마!";
         StartCoroutine(LLMAPIRequestText(promptMessage, maxToken));
     }
 
@@ -109,6 +110,7 @@ public class APIManager : MonoBehaviour
         }
         else
         {
+            isError = true;
             Debug.LogError("Error: " + request.error);
             Debug.LogError("Response: " + request.downloadHandler.text);
         }
@@ -139,6 +141,7 @@ public class APIManager : MonoBehaviour
         }
         else
         {
+            isError = true;
             Debug.LogError("Error: " + request.error);
             Debug.LogError("Response: " + request.downloadHandler.text);
         }
@@ -157,10 +160,12 @@ public class APIManager : MonoBehaviour
             Debug.Log("Model Response: " + modelResponse);
             apiResponse = modelResponse;
             messageList.Add(modelResponse);
+            isError = false;
             isCatch = true;
         }
         else
         {
+            isError = true;
             Debug.LogError("Could not parse the response.");
         }
     }

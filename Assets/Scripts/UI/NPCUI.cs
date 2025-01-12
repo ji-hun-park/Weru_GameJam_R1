@@ -18,6 +18,12 @@ public class NPCUI : MonoBehaviour
         {
             OnClickSendButton();
         }
+
+        if (APIManager.Instance.isError)
+        {
+            TMPText.text = "응답 오류! 재전송 하세요!";
+            oneShot = true;
+        }
         
         if (APIManager.Instance.isCatch)
         {
