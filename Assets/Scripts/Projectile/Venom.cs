@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Venom : MonoBehaviour
 {
-    private float moveSpeed = 150;
+    private const float moveSpeed = 150f;
     private Vector3 targetPosition;
     private Vector3 dir;
     
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         GuidedMissile();
     }

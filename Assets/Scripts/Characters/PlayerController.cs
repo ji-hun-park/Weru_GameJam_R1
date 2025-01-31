@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         speed = 40f;
         jumpHeight = 40f;
-        dash = 80f;
+        dash = 120f;
         rotSpeed = 10f;
         dir = Vector3.zero;
         
@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (GameManager.Instance.superJumping)
@@ -55,13 +54,25 @@ public class PlayerController : MonoBehaviour
         
         if (!GameManager.Instance.isEventAnim)
         {
-            dir.x = Input.GetAxis("Horizontal");
-            dir.z = Input.GetAxis("Vertical");
+            /*if (!GameManager.Instance.isRevers2)
+            {
+                dir.x = Input.GetAxis("Horizontal");
+                dir.z = Input.GetAxis("Vertical");
+            }
+            else
+            {
+                dir.x = Input.GetAxis("Vertical");
+                dir.z = Input.GetAxis("Horizontal");
+            }*/
+            
+            dir.x = GameManager.Instance.isRevers2 ? Input.GetAxis("Vertical") : Input.GetAxis("Horizontal");
+            dir.z = GameManager.Instance.isRevers2 ? Input.GetAxis("Horizontal") : Input.GetAxis("Vertical");
+
             dir.Normalize();
 
             CheckGround();
 
-            if (Input.GetButtonDown("Jump") && isGrounded && GameManager.Instance.playerMP >= 20f)
+            if (Time.timeScale >= 1 && Input.GetButtonDown("Jump") && isGrounded && GameManager.Instance.playerMP >= 20f)
             {
                 Vector3 jumpPower = Vector3.up * jumpHeight;
                 rb.AddForce(jumpPower, ForceMode.VelocityChange);

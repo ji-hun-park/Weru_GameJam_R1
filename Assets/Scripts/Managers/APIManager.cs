@@ -54,7 +54,7 @@ public class APIManager : MonoBehaviour
 
         maxToken = 800;
         
-        apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey;   
+        apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=" + apiKey;   
     }
 
     public void SendRequestImage()

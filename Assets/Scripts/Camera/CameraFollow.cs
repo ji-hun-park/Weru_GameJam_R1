@@ -57,7 +57,7 @@ public class CameraFollow : MonoBehaviour
             transform.rotation = Quaternion.Euler(fixedRotation);
         }
         
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (GameManager.Instance.isRevers)
             {
@@ -70,6 +70,22 @@ public class CameraFollow : MonoBehaviour
                 //transform.rotation = Quaternion.Euler(fixedRotR);
                 //transform.rotation = Quaternion.Euler(fixedRotR);
                 GameManager.Instance.isRevers = true;
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (GameManager.Instance.isRevers2)
+            {
+                //transform.rotation = Quaternion.Euler(fixedRotN);
+                //transform.rotation = Quaternion.Euler(fixedRotN);
+                GameManager.Instance.isRevers2 = false;
+            }
+            else
+            {
+                //transform.rotation = Quaternion.Euler(fixedRotR);
+                //transform.rotation = Quaternion.Euler(fixedRotR);
+                GameManager.Instance.isRevers2 = true;
             }
         }
         
