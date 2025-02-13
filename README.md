@@ -5,6 +5,12 @@
 빨리 해독제를 찾지 않으면 죽게된다.  
 중앙 AI가 스크린의 그림을 해석해 그 그림 속에 암호가 포함된다면 해독제를 제공한다.
 
+![Image](https://github.com/user-attachments/assets/351e1b2a-d4f7-48c4-9ed1-8ced84ccf17f)
+![Image](https://github.com/user-attachments/assets/32d9abf3-a3c5-43d4-9c43-1e7ba46f628a)
+![Image](https://github.com/user-attachments/assets/021088af-b222-4d10-9081-ba1133f30e50)
+![Image](https://github.com/user-attachments/assets/5f597439-c702-4f91-b8e4-a2514db89e52)
+![Image](https://github.com/user-attachments/assets/98193511-d913-49ef-a52f-c0da127f32a9)
+
 ## 게임 방법
 - 제한 시간(8분) 안에 해독제를 찾지 못하거나, 적에게 많이 공격 당하면 죽습니다.
 - WASD, 방향키로 이동이 가능하며, Q,E를 통해 이동키 입력 방향을 바꿀 수 있습니다.
